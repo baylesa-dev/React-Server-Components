@@ -1,0 +1,24 @@
+{
+    "name": "react-sc-server",
+    "version": "1.0.0",
+    "description": "React Server Components testing - Server",
+    "main": "index.js",
+    "repository": "https://github.com/baylesa-dev/React-Server-Components.git",
+    "author": "baylesa-dev <baylesa.adrien@gmail.com>",
+    "license": "MIT",
+    "scripts": {
+        "start:dev": "NODE_ENV=development nodemon -- --conditions=react-server",
+        "start:prod": "NODE_ENV=production nodemon -- --conditions=react-server"
+    },
+    "dependencies": {
+        "compression": "^1.7.4",
+        "express": "^4.17.1",
+        "react": "0.0.0-experimental-3310209d0",
+        "react-dom": "0.0.0-experimental-3310209d0"
+    },
+    "devDependencies": {
+        "@types/compression": "^1.7.0",
+        "@types/express": "^4.17.9",
+        "ts-node": "^9.1.1"
+    }
+}
