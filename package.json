@@ -1,0 +1,9 @@
+{
+    "name": "react-sc",
+    "version": "1.0.0",
+    "main": "src/index.ts",
+    "license": "MIT",
+    "description": "React Server Components testing",
+    "repository": "https://github.com/baylesa-dev/React-Server-Components.git",
+    "author": "baylesa-dev <baylesa.adrien@gmail.com>"
+}
