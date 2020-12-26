@@ -23,11 +23,14 @@ export function handleErrors(
 export async function waitForWebpack(): Promise<void> {
     const { readFileSync } = await import('fs');
     const { resolve } = await import('path');
+    const MAX_TRY = 10;
+    let tries = 0;
 
     // eslint-disable-next-line
-    while (true) {
+    while (true && tries < MAX_TRY) {
+        tries += 1;
         try {
-            readFileSync(resolve(__dirname, '../build/index.html'));
+            readFileSync(resolve(__dirname, '../../../build/index.html'));
             return;
         } catch (err) {
             console.log(
@@ -41,7 +44,7 @@ export async function waitForWebpack(): Promise<void> {
 
 export async function renderReactTree(
     res: Response,
-    props: Record<string, unknown>
+    props?: Record<string, unknown>
 ): Promise<void> {
     const { readFileSync } = await import('fs');
     const { resolve } = await import('path');
@@ -51,30 +54,19 @@ export async function renderReactTree(
         'react-server-dom-webpack/writer'
     );
 
-    const ReactApp = (await import('../../client/src/server/App')).default;
+    const ReactApp = (await import('../../client/src/server/App.server'))
+        .default;
 
     await waitForWebpack();
     const manifest = readFileSync(
-        resolve(__dirname, '../build/react-client-manifest.json'),
+        resolve(__dirname, '../../../build/react-client-manifest.json'),
         'utf8'
     );
     const moduleMap = JSON.parse(manifest);
     pipeToNodeWritable(createElement(ReactApp, props), res, moduleMap);
 }
 
-export function sendResponse(
-    req: Request,
-    res: Response,
-    redirectToId: null
-): void {
-    const location = JSON.parse(req.query.location as string);
-    if (redirectToId) {
-        location.selectedId = redirectToId;
-    }
-    res.set('X-Location', JSON.stringify(location));
-    renderReactTree(res, {
-        selectedId: location.selectedId,
-        isEditing: location.isEditing,
-        searchText: location.searchText,
-    });
+export function sendResponse(req: Request, res: Response): void {
+    void req;
+    renderReactTree(res);
 }

@@ -7,8 +7,8 @@
     "author": "baylesa-dev <baylesa.adrien@gmail.com>",
     "license": "MIT",
     "scripts": {
-        "start:dev": "NODE_ENV=development nodemon -- --conditions=react-server",
-        "start:prod": "NODE_ENV=production nodemon -- --conditions=react-server"
+        "start:dev": "NODE_ENV=development nodemon",
+        "start:prod": "NODE_ENV=production nodemon"
     },
     "dependencies": {
         "compression": "^1.7.4",
